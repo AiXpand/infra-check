@@ -24,7 +24,7 @@ jobs:
         go mod verify
 
     - name: Build Linux AMD64
-      run: GOOS=linux GOARCH=amd64 go build -v ./... -o dist/infracheck_linux_amd64
+      run: GOOS=linux GOARCH=amd64 go build -v -o dist/infracheck_linux_amd64 ./...
 
     - name: Test
       run: go test -v ./...
