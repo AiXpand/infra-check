@@ -23,8 +23,8 @@ jobs:
         go mod download
         go mod verify
 
-    - name: Build
-      run: go build -v ./...
+    - name: Build Linux AMD64
+      run: GOOS=linux GOARCH=amd64 go build -v ./... -o ./dist/infracheck_linux_amd64
 
     - name: Test
       run: go test -v ./...
@@ -45,4 +45,4 @@ jobs:
     - name: Create Release
       run: |
         TAG=$(git describe --abbrev=0 --tags)
-        hub release create -a ./path/to/binary -m "Release $TAG" $TAG
+        hub release create -a ./dist/infracheck_linux_amd64 -m "Release $TAG" $TAG
