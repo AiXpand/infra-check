@@ -17,8 +17,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	// build a version string from the environment
+	version := os.Getenv("APP_VERSION")
+	if version != "" {
+		version = VERSION
+	}
+
 	// print out a header
-	pterm.DefaultHeader.WithFullWidth().Println("CAVI Infrastructure Checker " + VERSION)
+	pterm.DefaultHeader.WithFullWidth().Println("CAVI Infrastructure Checker " + version)
 	pterm.Println() // spacer
 
 	var currentChecks []checks.Check
