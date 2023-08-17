@@ -50,6 +50,8 @@ jobs:
         sudo apt-get -y install hub
 
     - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        TAG=$(git describe --abbrev=0 --tags)
+        TAG=${{ github.ref }}
         hub release create -a ./dist/infracheck_linux_amd64 -m "Release $TAG" $TAG
