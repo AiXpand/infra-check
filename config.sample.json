@@ -1,0 +1,25 @@
+{
+  "engine": "podman",
+  "redis": {
+    "host": "localhost",
+    "password": "redis_password",
+    "port": 6379
+  },
+  "database": {
+    "engine": "postgresql",
+    "host": "localhost",
+    "port": 5432
+  },
+  "mqtt": {
+    "host": "localhost",
+    "port": 1883,
+    "username": "mqtt_user",
+    "password": "mqtt_password"
+  },
+  "checks": [
+    {
+      "label": "Dummy check",
+      "type": "dummy_check"
+    }
+  ]
+}
