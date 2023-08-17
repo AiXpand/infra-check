@@ -36,7 +36,7 @@ jobs:
 
     - name: Create Release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PTA_TOKEN }}
       run: |
         TAG=${{ github.ref }}
         hub release create -a ./dist/infracheck_linux_amd64 -m "Release $TAG" $TAG
