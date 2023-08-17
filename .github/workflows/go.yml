@@ -23,6 +23,9 @@ jobs:
         go mod download
         go mod verify
 
+    - name: Ensure dist directory
+      run: mkdir dist
+      
     - name: Build Linux AMD64
       run: GOOS=linux GOARCH=amd64 go build -v -o dist/infracheck_linux_amd64 ./...
 
