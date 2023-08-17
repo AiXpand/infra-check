@@ -32,7 +32,6 @@ jobs:
 
   release:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v') # only when we push a tag that starts with 'v'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
