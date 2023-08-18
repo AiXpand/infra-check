@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// print out a header
-	pterm.DefaultHeader.WithFullWidth().Println("CAVI Infrastructure Checker " + version)
+	pterm.DefaultHeader.WithFullWidth().Println("AiExpand Infrastructure Checker " + version)
 	pterm.Println() // spacer
 
 	var currentChecks []checks.Check
