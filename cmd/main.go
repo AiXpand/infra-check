@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const VERSION = "1.0.0"
+const AppVersion = "1.0.0"
 
 func main() {
 	cfg, err := config.NewConfiguration()
@@ -17,14 +17,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	// build a version string from the environment
-	version := os.Getenv("APP_VERSION")
-	if version != "" {
-		version = VERSION
-	}
-
 	// print out a header
-	pterm.DefaultHeader.WithFullWidth().Println("AiExpand Infrastructure Checker " + version)
+	pterm.DefaultHeader.WithFullWidth().Println("AiExpand Infrastructure Checker " + AppVersion)
 	pterm.Println() // spacer
 
 	var currentChecks []checks.Check
