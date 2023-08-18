@@ -23,6 +23,13 @@ type Config struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
 	} `json:"mqtt"`
+	Minio struct {
+		Host      string `json:"host"`
+		Port      int    `json:"port"`
+		AccessKey string `json:"accessKey"`
+		SecretKey string `json:"secretKey"`
+		UseSSL    bool   `json:"useSSL"`
+	}
 	Checks []struct {
 		Type          string `json:"type"`
 		Label         string `json:"label"`
@@ -32,6 +39,8 @@ type Config struct {
 		Username      string `json:"username,omitempty"`
 		Password      string `json:"password,omitempty"`
 		Database      string `json:"database,omitempty"`
+		Path          string `json:"path,omitempty"`
+		Engine        string `json:"engine,omitempty"`
 	} `json:"checks"`
 }
 

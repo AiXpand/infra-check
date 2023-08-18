@@ -28,6 +28,25 @@ func main() {
 	pterm.Println() // spacer
 
 	var currentChecks []checks.Check
+	currentChecks = initialiseChecks(cfg, currentChecks)
+
+	// Create progressbar as fork from the default progressbar.
+	p, _ := pterm.DefaultProgressbar.WithTotal(len(currentChecks)).WithTitle("Checking infrastructure").Start()
+	for _, c := range currentChecks {
+		p.UpdateTitle("Running check " + c.GetLabel())
+		if err = c.Run(); err != nil {
+			pterm.Error.Println(c.GetLabel() + " failed with error: " + err.Error())
+			p.Increment()
+			continue
+		}
+		pterm.Success.Println(c.GetLabel())
+		p.Increment()
+	}
+
+}
+
+// initialiseChecks creates the checks based on the configuration
+func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks.Check {
 	for _, chk := range cfg.Checks {
 		switch chk.Type {
 		case "dummy_check":
@@ -51,20 +70,10 @@ func main() {
 		case "database_connection_check":
 			currentChecks = append(currentChecks, checks.NewDatabaseConnectionCheck(cfg, chk.Label, chk.Username, chk.Password, chk.Database))
 			break
+		case "file_exists_check":
+			currentChecks = append(currentChecks, checks.NewFileExistsCheck(cfg, chk.Label, chk.Path, chk.Engine))
+			break
 		}
 	}
-
-	// Create progressbar as fork from the default progressbar.
-	p, _ := pterm.DefaultProgressbar.WithTotal(len(currentChecks)).WithTitle("Checking infrastructure").Start()
-	for _, c := range currentChecks {
-		p.UpdateTitle("Running check " + c.GetLabel())
-		if err = c.Run(); err != nil {
-			pterm.Error.Println(c.GetLabel() + " failed with error: " + err.Error())
-			p.Increment()
-			continue
-		}
-		pterm.Success.Println(c.GetLabel())
-		p.Increment()
-	}
-
+	return currentChecks
 }

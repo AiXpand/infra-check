@@ -21,11 +21,15 @@ jobs:
         go mod download
         go mod verify
 
+    - name: Extract Tag Name
+      id: extract_tag
+      run: echo "::set-output name=tag::$(basename ${{ github.ref }})"
+
     - name: Ensure dist directory
       run: mkdir dist
       
     - name: Build Linux AMD64
-      run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -v -ldflags="-s -w" -o dist/infracheck_linux_amd64 ./cmd
+      run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -v -ldflags="-s -w -X main.VERSION=${{ steps.extract_tag.outputs.tag }}" -o dist/infra-checker_linux_amd64 ./cmd
 
     - name: Test
       run: go test -v ./...
@@ -38,6 +42,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PTA_TOKEN }}
       run: |
-        TAG=${{ github.ref }}
-        hub release create -a ./dist/infracheck_linux_amd64 -m "Release $TAG" $TAG
-        
+        TAG=${{ steps.extract_tag.outputs.tag }}
+        hub release create -a ./dist/infra-checker_linux_amd64 -m "Release $TAG" $TAG
