@@ -73,6 +73,9 @@ func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks
 		case "file_exists_check":
 			currentChecks = append(currentChecks, checks.NewFileExistsCheck(cfg, chk.Label, chk.Path, chk.Engine))
 			break
+		case "execution_engine_heartbeat_check":
+			currentChecks = append(currentChecks, checks.NewExecutionEngineHeartbeatCheck(chk.BoxName, chk.Label, cfg))
+			break
 		}
 	}
 	return currentChecks

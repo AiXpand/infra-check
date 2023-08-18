@@ -41,6 +41,7 @@ type Config struct {
 		Database      string `json:"database,omitempty"`
 		Path          string `json:"path,omitempty"`
 		Engine        string `json:"engine,omitempty"`
+		BoxName       string `json:"box_name,omitempty"`
 	} `json:"checks"`
 }
 

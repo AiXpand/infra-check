@@ -48,3 +48,19 @@ func (m *MqttClient) Connect() error {
 func (m *MqttClient) Disconnect() {
 	m.Client.Disconnect(250)
 }
+
+func (m *MqttClient) Subscribe(topic string, callback MQTT.MessageHandler) error {
+	if token := m.Client.Subscribe(topic, 0, callback); token.Wait() && token.Error() != nil {
+		return token.Error()
+	}
+
+	return nil
+}
+
+func (m *MqttClient) Unsubscribe(topic string) error {
+	if token := m.Client.Unsubscribe(topic); token.Wait() && token.Error() != nil {
+		return token.Error()
+	}
+
+	return nil
+}
