@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const AppVersion = "1.0.0"
+var AppVersion = "1.0.0"
 
 func main() {
 	cfg, err := config.NewConfiguration()
