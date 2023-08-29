@@ -70,6 +70,9 @@ func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks
 		case "execution_engine_heartbeat_check":
 			currentChecks = append(currentChecks, checks.NewExecutionEngineHeartbeatCheck(chk.BoxName, chk.Label, cfg))
 			break
+		case "terminus_check":
+			currentChecks = append(currentChecks, checks.NewTerminusCheck(chk.Label, chk.Url))
+			break
 		}
 	}
 	return currentChecks
