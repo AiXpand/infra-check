@@ -42,6 +42,7 @@ type Config struct {
 		Path          string `json:"path,omitempty"`
 		Engine        string `json:"engine,omitempty"`
 		BoxName       string `json:"box_name,omitempty"`
+		Namespace     string `json:"namespace,omitempty"`
 	} `json:"checks"`
 }
 

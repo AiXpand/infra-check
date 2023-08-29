@@ -8,7 +8,7 @@ type Container struct {
 }
 
 // NewContainer instantiate a new Container struct
-func NewContainer(config *config.Config) *Container {
+func NewContainer(config *config.Config, namespace string) *Container {
 	var orchestrator Orchestrator
 	switch config.Engine {
 	case "podman":
@@ -16,6 +16,9 @@ func NewContainer(config *config.Config) *Container {
 		break
 	case "docker":
 		orchestrator = NewDocker()
+		break
+	case "kubernetes":
+		orchestrator = NewKubernetes(namespace)
 		break
 	}
 
