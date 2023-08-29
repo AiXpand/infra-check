@@ -7,14 +7,16 @@ import (
 
 type ContainerExistsCheck struct {
 	ContainerName string
+	Namespace     string
 	Label         string
 	Config        *config.Config
 }
 
 // NewContainerExistsCheck instantiate a new ContainerExistsCheck struct
-func NewContainerExistsCheck(containerName string, label string, config *config.Config) ContainerExistsCheck {
+func NewContainerExistsCheck(containerName, label, namespace string, config *config.Config) ContainerExistsCheck {
 	return ContainerExistsCheck{
 		ContainerName: containerName,
+		Namespace:     namespace,
 		Label:         label,
 		Config:        config,
 	}
@@ -22,7 +24,7 @@ func NewContainerExistsCheck(containerName string, label string, config *config.
 
 // Run executes the check
 func (c ContainerExistsCheck) Run() error {
-	if err := container.NewContainer(c.Config).ContainerExists(c.ContainerName); err != nil {
+	if err := container.NewContainer(c.Config, c.Namespace).ContainerExists(c.ContainerName); err != nil {
 		return err
 	}
 	return nil

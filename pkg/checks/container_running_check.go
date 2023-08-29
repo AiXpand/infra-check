@@ -7,14 +7,16 @@ import (
 
 type ContainerRunningCheck struct {
 	ContainerName string
+	Namespace     string
 	Label         string
 	Config        *config.Config
 }
 
 // NewContainerRunningCheck instantiate a new ContainerRunningCheck struct
-func NewContainerRunningCheck(containerName string, label string, config *config.Config) *ContainerRunningCheck {
+func NewContainerRunningCheck(containerName, label, namespace string, config *config.Config) *ContainerRunningCheck {
 	return &ContainerRunningCheck{
 		ContainerName: containerName,
+		Namespace:     namespace,
 		Label:         label,
 		Config:        config,
 	}
@@ -22,7 +24,7 @@ func NewContainerRunningCheck(containerName string, label string, config *config
 
 // Run the check
 func (c *ContainerRunningCheck) Run() error {
-	err := container.NewContainer(c.Config).ContainerRunning(c.ContainerName)
+	err := container.NewContainer(c.Config, c.Namespace).ContainerRunning(c.ContainerName)
 	if err != nil {
 		return err
 	}

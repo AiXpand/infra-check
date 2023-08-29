@@ -47,10 +47,10 @@ func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks
 			currentChecks = append(currentChecks, checks.DummyCheck{Label: chk.Label})
 			break
 		case "container_exists_check":
-			currentChecks = append(currentChecks, checks.NewContainerExistsCheck(chk.ContainerName, chk.Label, cfg))
+			currentChecks = append(currentChecks, checks.NewContainerExistsCheck(chk.ContainerName, chk.Label, chk.Namespace, cfg))
 			break
 		case "container_running_check":
-			currentChecks = append(currentChecks, checks.NewContainerRunningCheck(chk.ContainerName, chk.Label, cfg))
+			currentChecks = append(currentChecks, checks.NewContainerRunningCheck(chk.ContainerName, chk.Label, chk.Namespace, cfg))
 			break
 		case "http_response_check":
 			currentChecks = append(currentChecks, checks.HttpResponseCheck{Url: chk.Url, Label: chk.Label, ExpectedResponse: chk.Code})
