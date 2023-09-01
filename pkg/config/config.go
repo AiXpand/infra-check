@@ -44,6 +44,7 @@ type Config struct {
 		BoxName       string  `json:"box_name,omitempty"`
 		Namespace     string  `json:"namespace,omitempty"`
 		Threshold     float64 `json:"threshold,omitempty"`
+		Size          string  `json:"size,omitempty"`
 	} `json:"checks"`
 }
 

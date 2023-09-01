@@ -8,11 +8,23 @@ The infrastructure checker is a proactive and configurable command line tool tha
 
 The installation process is a straight forward process, just copy the binary from GitHub releases [here](https://github.com/AiXpand/infra-check/releases) and copy it to the node that you want to test, copy the configuration file from [here](https://raw.githubusercontent.com/AiXpand/infra-check/main/config.sample.json), and configure the necessary checks.
 
+**On linux:
+
+Ensure the binary is executable by running the following cli command
+
+```bash
+chmod +x infra-checker_linux_amd64
+```
+
+Make sure your user has access to the orchestrator kubectl, docker, podman, etc;
+
+If your user doesn’t have access to the orchestrator, use the root user.
+
 ## 2. Configuration
 
 After downloading the configuration template from GitHub, place it next to the binary, the application will try to locate its configuration file relative to its path.
 
-**Supported checks as of version v.1.4.0**
+**Supported checks as of version v.1.5.0**
 
 | Name | Description |
 | --- | --- |
@@ -26,6 +38,7 @@ After downloading the configuration template from GitHub, place it next to the b
 | execution_engine_heartbeat_check | Used to check if a given instance of execution engine is present |
 | terminus_check | Used to check the status of a nest.js installation via Terminus module |
 | local_disk_space_check | Used to check the available local disk space |
+| local_memory_space_check | Used to check if the available memory is below a certain threshold  |
 
 **Anatomy of the configuration file**
 
@@ -290,6 +303,22 @@ Understanding the above check
 3. “path”, this key represents the disk partition you want to check usually you will want to check the “/” (root partition)
 4. “threshold” this key represents the maximum accepted occupied disk space, in the above example that is 80%
 
+Check if there is enough free memory
+
+```json
+{
+  "type": "local_memory_space_check",
+  "label": "Local memory space check",
+  "threshold": 80.0
+}
+```
+
+Understanding the above check
+
+1. “type” the type of the check preformed by the tool
+2. “label” an arbitrary string defined by the user in order to differentiate this check from others.
+3. “threshold” this key represents the maximum accepted occupied memory space, in the above example that is 80%
+
 ## 4. Example configuration
 
 ```json
@@ -393,7 +422,7 @@ Possible solutions:
 
 ### ERROR Execution engine heartbeat check failed with error: timeout waiting for expected message
 
-The above error signals the fact that the Execution Engine instance did not send a heartbeat message
+The above error signals the fact that the Execution Engine instance didn’t sent a heartbeat message
 
 Possible solutions:
 

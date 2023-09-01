@@ -76,6 +76,9 @@ func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks
 		case "local_disk_space_check":
 			currentChecks = append(currentChecks, checks.NewLocalDiskSpaceCheck(chk.Label, chk.Path, chk.Threshold))
 			break
+		case "local_memory_space_check":
+			currentChecks = append(currentChecks, checks.NewLocalMemorySpaceCheck(chk.Label, chk.Threshold))
+			break
 		}
 	}
 	return currentChecks
