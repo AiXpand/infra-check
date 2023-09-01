@@ -31,18 +31,19 @@ type Config struct {
 		UseSSL    bool   `json:"useSSL"`
 	}
 	Checks []struct {
-		Type          string `json:"type"`
-		Label         string `json:"label"`
-		ContainerName string `json:"container_name,omitempty"`
-		Url           string `json:"url,omitempty"`
-		Code          int    `json:"code,omitempty"`
-		Username      string `json:"username,omitempty"`
-		Password      string `json:"password,omitempty"`
-		Database      string `json:"database,omitempty"`
-		Path          string `json:"path,omitempty"`
-		Engine        string `json:"engine,omitempty"`
-		BoxName       string `json:"box_name,omitempty"`
-		Namespace     string `json:"namespace,omitempty"`
+		Type          string  `json:"type"`
+		Label         string  `json:"label"`
+		ContainerName string  `json:"container_name,omitempty"`
+		Url           string  `json:"url,omitempty"`
+		Code          int     `json:"code,omitempty"`
+		Username      string  `json:"username,omitempty"`
+		Password      string  `json:"password,omitempty"`
+		Database      string  `json:"database,omitempty"`
+		Path          string  `json:"path,omitempty"`
+		Engine        string  `json:"engine,omitempty"`
+		BoxName       string  `json:"box_name,omitempty"`
+		Namespace     string  `json:"namespace,omitempty"`
+		Threshold     float64 `json:"threshold,omitempty"`
 	} `json:"checks"`
 }
 

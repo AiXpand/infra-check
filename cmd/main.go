@@ -73,6 +73,9 @@ func initialiseChecks(cfg *config.Config, currentChecks []checks.Check) []checks
 		case "terminus_check":
 			currentChecks = append(currentChecks, checks.NewTerminusCheck(chk.Label, chk.Url))
 			break
+		case "local_disk_space_check":
+			currentChecks = append(currentChecks, checks.NewLocalDiskSpaceCheck(chk.Label, chk.Path, chk.Threshold))
+			break
 		}
 	}
 	return currentChecks
